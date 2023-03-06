@@ -1,6 +1,7 @@
 #ifndef PATIENT_H_
 #define PATIENT_H_
 
+#include <armadillo>
 #include <filesystem>
 #include <string>
 #include <vector>
@@ -12,6 +13,7 @@ public:
     std::string group;
     int k;
     std::vector<int> qualifier;
+    arma::Col<double> qualifier_arma;
 
     Patient(
         std::string sample_id,
@@ -25,9 +27,12 @@ public:
         , k(k)
         , qualifier(qualifier)
     {
+        std::vector<double> qualifier_double;
         for (auto i = 0; i < this->qualifier.size(); i++) {
             this->qualifier[i] *= this->k;
+            qualifier_double.emplace_back(this->qualifier[i]);
         }
+        this->qualifier_arma = qualifier_double;
     }
 };
 

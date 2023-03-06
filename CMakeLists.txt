@@ -27,9 +27,16 @@ set (TEST_FILES
      test_nim
      test_patient)
 
+# Setup Armadillo
+find_package(Armadillo REQUIRED)
+include_directories(${ARMADILLO_INCLUDE_DIRS})
+
+# Setup main executable
 add_executable(nutriomics_main ${SRC_DIR}/nutriomics_main.cpp ${LIB_FILES})
+target_link_libraries(nutriomics_main PRIVATE ${ARMADILLO_LIBRARIES})
 target_include_directories(nutriomics_main PRIVATE ${INCLUDE_DIR})
 
+# Setup test
 Include(FetchContent)
 
 FetchContent_Declare(
@@ -47,6 +54,7 @@ include(Catch)
 foreach(TEST_FILE ${TEST_FILES})
         add_executable(${TEST_FILE} ${TEST_DIR}/${TEST_FILE}.cpp ${LIB_FILES})
         target_link_libraries(${TEST_FILE} PRIVATE Catch2::Catch2WithMain)
+        target_link_libraries(${TEST_FILE} PRIVATE ${ARMADILLO_LIBRARIES})
         target_include_directories(${TEST_FILE} PRIVATE ${INCLUDE_DIR})
         catch_discover_tests(${TEST_FILE})
 endforeach()

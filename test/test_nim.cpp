@@ -19,4 +19,8 @@ TEST_CASE("Test loading NIM matrix")
     REQUIRE(nim.impact_matrix[0][0] == 0);
     REQUIRE(nim.impact_matrix[nim.nutrient_size - 1][2] == 0.0074);
     REQUIRE(nim.impact_matrix[nim.nutrient_size - 1][nim.microbe_size - 1] == 1.0);
+    REQUIRE(nim.impact_matrix_arma.n_rows == nim.nutrient_size);
+    REQUIRE(nim.impact_matrix_arma.n_cols == nim.microbe_size);
+    REQUIRE(nim.impact_matrix_arma.at(0, 0) == 0);
+    REQUIRE(nim.impact_matrix_arma.at(nim.nutrient_size - 1, nim.microbe_size - 1) == 1.0);
 }
