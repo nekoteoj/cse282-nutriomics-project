@@ -24,3 +24,12 @@ std::vector<double> vector_string_to_double(const std::vector<std::string>& s_ve
     }
     return results;
 }
+
+std::vector<int> vector_string_to_int(const std::vector<std::string>& s_vector)
+{
+    std::vector<int> results;
+    for (const auto c : s_vector) {
+        results.emplace_back(std::stoi(c));
+    }
+    return results;
+}

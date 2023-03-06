@@ -10,12 +10,12 @@ class NIM {
 public:
     std::vector<std::string> nutrients;
     std::vector<std::string> microbes;
-    std::vector<std::vector<double>> impactMatrix;
-    
+    std::vector<std::vector<double>> impact_matrix;
+
     size_t nutrient_size;
     size_t microbe_size;
 
-    void load(std::filesystem::path path, std::string sep = ",");
+    bool load(std::filesystem::path path, std::string sep = ",");
 };
 
 #endif
