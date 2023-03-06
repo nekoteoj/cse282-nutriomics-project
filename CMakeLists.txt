@@ -20,12 +20,14 @@ set (LIB_FILES
      ${SRC_DIR}/sum.cpp
      ${SRC_DIR}/nim.cpp
      ${SRC_DIR}/util.cpp
-     ${SRC_DIR}/patient.cpp)
+     ${SRC_DIR}/patient.cpp
+     ${SRC_DIR}/treatment.cpp)
 
 set (TEST_FILES
      test_util
      test_nim
-     test_patient)
+     test_patient
+     test_treatment)
 
 # Setup Armadillo
 find_package(Armadillo REQUIRED)
