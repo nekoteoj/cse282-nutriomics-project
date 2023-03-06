@@ -26,6 +26,6 @@ TEST_CASE("Convert vector of string to vector of double")
     auto outputs = vector_string_to_double(inputs);
     REQUIRE(outputs.size() == results.size());
     for (auto i = 0; i < outputs.size(); i++) {
-        REQUIRE(abs(outputs[i] - results[i]) < 1e-9);
+        REQUIRE(std::abs(outputs[i] - results[i]) < 1e-9);
     }
 }
