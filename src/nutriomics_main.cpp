@@ -1,10 +1,15 @@
 #include <iostream>
 
+#include "argument.h"
 #include "sum.h"
 
-int main()
+int main(int argc, char* argv[])
 {
-    std::cout << "Hello, World!" << std::endl;
-    std::cout << "1+2=" << sum(1, 2) << std::endl;
+    auto run_config = parse_arguments(argc, argv);
+    std::cout << "Welcome to Treatment Vector Solver!" << std::endl
+              << std::endl;
+    std::cout << "NIM path: " << run_config.nim_path << std::endl;
+    std::cout << "Patient path: " << run_config.patient_path << std::endl;
+    std::cout << "Maximum nutrient allowance: " << run_config.k << std::endl;
     return 0;
 }

@@ -22,7 +22,8 @@ set (LIB_FILES
      ${SRC_DIR}/util.cpp
      ${SRC_DIR}/patient.cpp
      ${SRC_DIR}/treatment.cpp
-     ${SRC_DIR}/scoring.cpp)
+     ${SRC_DIR}/scoring.cpp
+     ${SRC_DIR}/argument.cpp)
 
 set (TEST_FILES
      test_util
@@ -35,9 +36,19 @@ set (TEST_FILES
 find_package(Armadillo REQUIRED)
 include_directories(${ARMADILLO_INCLUDE_DIRS})
 
+# Setup argparse
+include(FetchContent)
+FetchContent_Declare(
+        argparse
+        GIT_REPOSITORY https://github.com/p-ranav/argparse.git
+)
+FetchContent_MakeAvailable(argparse)
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/_deps/argparse-src/include)
+
 # Setup main executable
 add_executable(nutriomics_main ${SRC_DIR}/nutriomics_main.cpp ${LIB_FILES})
 target_link_libraries(nutriomics_main PRIVATE ${ARMADILLO_LIBRARIES})
+target_link_libraries(nutriomics_main PRIVATE argparse)
 target_include_directories(nutriomics_main PRIVATE ${INCLUDE_DIR})
 
 # Setup test
@@ -59,6 +70,7 @@ foreach(TEST_FILE ${TEST_FILES})
         add_executable(${TEST_FILE} ${TEST_DIR}/${TEST_FILE}.cpp ${LIB_FILES})
         target_link_libraries(${TEST_FILE} PRIVATE Catch2::Catch2WithMain)
         target_link_libraries(${TEST_FILE} PRIVATE ${ARMADILLO_LIBRARIES})
+        target_link_libraries(${TEST_FILE} PRIVATE argparse)
         target_include_directories(${TEST_FILE} PRIVATE ${INCLUDE_DIR})
         catch_discover_tests(${TEST_FILE})
 endforeach()
