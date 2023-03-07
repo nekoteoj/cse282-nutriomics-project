@@ -6,7 +6,7 @@ bool export_treatment_to_csv(
     const std::vector<TreatmentResult>& treatment_results,
     const std::vector<Patient>& patients,
     const std::vector<std::string>& nutrients,
-    const std::string& output_path)
+    const std::filesystem::path& output_path)
 {
     std::ofstream file(output_path);
     if (!file.is_open()) {
