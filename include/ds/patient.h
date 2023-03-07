@@ -13,7 +13,7 @@ public:
     std::string group;
     int k;
     std::vector<int> qualifier;
-    arma::Col<double> qualifier_arma;
+    arma::Row<double> qualifier_arma;
 
     Patient(
         std::string sample_id,

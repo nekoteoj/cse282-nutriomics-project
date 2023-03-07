@@ -8,7 +8,7 @@
 class Treatment {
 public:
     std::vector<int> treat_vector;
-    arma::Col<double> treat_vector_arma;
+    arma::Row<double> treat_vector_arma;
 
     Treatment(size_t size);
     Treatment(const Treatment& treatment);

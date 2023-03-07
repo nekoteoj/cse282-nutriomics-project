@@ -3,13 +3,13 @@
 Treatment::Treatment(size_t size)
 {
     this->treat_vector.assign(size, 0);
-    this->treat_vector_arma = arma::zeros(size);
+    this->treat_vector_arma = arma::zeros(1, size);
 }
 
 Treatment::Treatment(const Treatment& treatment)
 {
     this->treat_vector = std::vector<int> { treatment.treat_vector };
-    this->treat_vector_arma = arma::Col<double> { treatment.treat_vector_arma };
+    this->treat_vector_arma = arma::Row<double> { treatment.treat_vector_arma };
 }
 
 Treatment Treatment::flip(size_t idx)

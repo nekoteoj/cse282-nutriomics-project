@@ -16,8 +16,8 @@ TEST_CASE("Test loading PatientList")
     REQUIRE(last_patient.sample_id == "ERR2092610");
     REQUIRE(first_patient.qualifier[0] == 10);
     REQUIRE(first_patient.qualifier_arma[0] == 10.0);
-    REQUIRE(first_patient.qualifier_arma.n_rows == patient_list.microbe_size);
+    REQUIRE(first_patient.qualifier_arma.n_cols == patient_list.microbe_size);
     REQUIRE(last_patient.qualifier[last_patient.qualifier.size() - 1] == 0);
     REQUIRE(last_patient.qualifier_arma[last_patient.qualifier.size() - 1] == 0);
-    REQUIRE(last_patient.qualifier_arma.n_rows == patient_list.microbe_size);
+    REQUIRE(last_patient.qualifier_arma.n_cols == patient_list.microbe_size);
 }

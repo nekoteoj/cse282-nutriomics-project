@@ -2,7 +2,6 @@
 
 #include "core/scoring.h"
 
-#include <iostream>
 #include <limits>
 #include <queue>
 #include <utility>
@@ -26,7 +25,7 @@ TreatmentResult BruteForceSolver::findTreatment(const Patient& p)
     Treatment best_solution = t;
 
     while (!q.empty()) {
-        auto& [t_front, depth] = q.front();
+        auto [t_front, depth] = q.front();
         q.pop();
         auto qualifier_hat = compute_qualifier(this->nim.impact_matrix_arma, t_front.treat_vector_arma);
         auto distance = compute_distance(p.qualifier_arma, qualifier_hat);
