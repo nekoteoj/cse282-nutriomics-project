@@ -2,21 +2,22 @@
 
 #include "core/scoring.h"
 
+#include <iostream>
 #include <limits>
 #include <queue>
 #include <utility>
 #include <vector>
 
-std::vector<Treatment> BaseSolver::findTreatments(const PatientList& ps)
+std::vector<TreatmentResult> BaseSolver::findTreatments(const PatientList& ps)
 {
-    std::vector<Treatment> treatments;
+    std::vector<TreatmentResult> treatments;
     for (const auto& p : ps.patients) {
         treatments.emplace_back(this->findTreatment(p));
     }
     return treatments;
 }
 
-Treatment BruteForceSolver::findTreatment(const Patient& p)
+TreatmentResult BruteForceSolver::findTreatment(const Patient& p)
 {
     Treatment t(this->nim.nutrient_size);
     std::queue<std::pair<Treatment, int>> q;
@@ -45,11 +46,11 @@ Treatment BruteForceSolver::findTreatment(const Patient& p)
         }
     }
 
-    return best_solution;
+    return { best_solution, best_distance };
 }
 
-Treatment ProposedSolver::findTreatment(const Patient& p)
+TreatmentResult ProposedSolver::findTreatment(const Patient& p)
 {
     Treatment t(this->nim.nutrient_size);
-    return t;
+    return { t, 0 };
 }

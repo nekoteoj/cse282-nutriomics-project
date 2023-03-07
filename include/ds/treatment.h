@@ -15,4 +15,16 @@ public:
     Treatment flip(size_t idx);
 };
 
+class TreatmentResult {
+public:
+    Treatment treatment;
+    double score;
+
+    TreatmentResult(const Treatment& treatment, double score)
+        : treatment(treatment)
+        , score(score)
+    {
+    }
+};
+
 #endif

@@ -12,16 +12,24 @@ public:
     NIM nim;
     int k;
 
-    virtual Treatment findTreatment(const Patient& p) = 0;
-    std::vector<Treatment> findTreatments(const PatientList& pl);
+    BaseSolver(const NIM& nim, int k)
+        : nim(nim)
+        , k(k)
+    {
+    }
+    virtual ~BaseSolver() { }
+    virtual TreatmentResult findTreatment(const Patient& p) = 0;
+    std::vector<TreatmentResult> findTreatments(const PatientList& pl);
 };
 
 class BruteForceSolver : public BaseSolver {
-    virtual Treatment findTreatment(const Patient& p);
+    using BaseSolver::BaseSolver;
+    virtual TreatmentResult findTreatment(const Patient& p);
 };
 
 class ProposedSolver : public BaseSolver {
-    virtual Treatment findTreatment(const Patient& p);
+    using BaseSolver::BaseSolver;
+    virtual TreatmentResult findTreatment(const Patient& p);
 };
 
 #endif
