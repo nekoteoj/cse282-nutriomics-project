@@ -1,6 +1,6 @@
 #include "ds/nim.h"
 
-#include "util.h"
+#include "util/util.h"
 
 bool NIM::load(std::filesystem::path path, std::string sep)
 {

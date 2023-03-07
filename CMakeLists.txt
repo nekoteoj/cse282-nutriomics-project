@@ -21,8 +21,8 @@ set(LIB_FILES
         ${SRC_DIR}/ds/patient.cpp
         ${SRC_DIR}/ds/treatment.cpp
         ${SRC_DIR}/cli/argument.cpp
-        ${SRC_DIR}/sum.cpp
-        ${SRC_DIR}/util.cpp
+        ${SRC_DIR}/util/util.cpp
+        ${SRC_DIR}/util/sum.cpp
         ${SRC_DIR}/scoring.cpp
         ${SRC_DIR}/solver.cpp
         ${SRC_DIR}/report.cpp)

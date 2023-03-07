@@ -1,3 +1,3 @@
-#include "sum.h"
+#include "util/sum.h"
 
 int sum(int a, int b) { return a + b; }

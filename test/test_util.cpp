@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "util.h"
+#include "util/util.h"
 
 #include <cmath>
 #include <string>

@@ -1,7 +1,6 @@
 #include <iostream>
 
 #include "cli/argument.h"
-#include "sum.h"
 
 int main(int argc, char* argv[])
 {
