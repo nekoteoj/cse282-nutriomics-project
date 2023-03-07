@@ -23,16 +23,16 @@ set(LIB_FILES
         ${SRC_DIR}/cli/argument.cpp
         ${SRC_DIR}/util/util.cpp
         ${SRC_DIR}/util/sum.cpp
-        ${SRC_DIR}/scoring.cpp
-        ${SRC_DIR}/solver.cpp
-        ${SRC_DIR}/report.cpp)
+        ${SRC_DIR}/core/scoring.cpp
+        ${SRC_DIR}/core/solver.cpp
+        ${SRC_DIR}/core/report.cpp)
 
 set(TEST_FILES
         ds/test_nim
         ds/test_patient
         ds/test_treatment
-        test_util
-        test_scoring)
+        util/test_util
+        core/test_scoring)
 
 # Setup Armadillo
 find_package(Armadillo REQUIRED)
@@ -69,7 +69,7 @@ include(CTest)
 include(Catch)
 
 foreach(TEST_FILE ${TEST_FILES})
-        STRING(REGEX REPLACE "^ds/" "" TEST_NAME ${TEST_FILE})
+        STRING(REGEX REPLACE "^ds/|^util/|^core/" "" TEST_NAME ${TEST_FILE})
         add_executable(${TEST_NAME} ${TEST_DIR}/${TEST_FILE}.cpp ${LIB_FILES})
         target_link_libraries(${TEST_NAME} PRIVATE Catch2::Catch2WithMain)
         target_link_libraries(${TEST_NAME} PRIVATE ${ARMADILLO_LIBRARIES})

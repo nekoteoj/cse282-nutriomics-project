@@ -1,6 +1,6 @@
-#include "solver.h"
+#include "core/solver.h"
 
-#include "scoring.h"
+#include "core/scoring.h"
 
 #include <limits>
 #include <queue>

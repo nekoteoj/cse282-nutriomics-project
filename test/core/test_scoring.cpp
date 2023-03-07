@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "scoring.h"
+#include "core/scoring.h"
 
 #include <armadillo>
 #include <vector>

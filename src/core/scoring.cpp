@@ -1,4 +1,4 @@
-#include "scoring.h"
+#include "core/scoring.h"
 
 arma::Col<double> compute_qualifier(
     const arma::Mat<double>& impact_matrix,
