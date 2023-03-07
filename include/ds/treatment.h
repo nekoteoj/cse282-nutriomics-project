@@ -13,6 +13,7 @@ public:
     Treatment(size_t size);
     Treatment(const Treatment& treatment);
     Treatment flip(size_t idx);
+    void flip_inplace(size_t idx);
 };
 
 class TreatmentResult {

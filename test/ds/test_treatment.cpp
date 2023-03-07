@@ -41,3 +41,16 @@ TEST_CASE("Test flip treatment vector")
         REQUIRE(t2.treat_vector_arma[i] == t2_expected_output);
     }
 }
+
+TEST_CASE("Test flip inplace treatment vector")
+{
+    size_t n = 5;
+    Treatment t(n);
+    t.flip_inplace(0);
+    t.flip_inplace(3);
+    for (auto i = 0; i < n; i++) {
+        auto t_expected_output = (i == 0 || i == 3) ? 1 : 0;
+        REQUIRE(t.treat_vector[i] == t_expected_output);
+        REQUIRE(t.treat_vector_arma[i] == t_expected_output);
+    }
+}

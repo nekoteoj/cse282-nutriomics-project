@@ -22,3 +22,13 @@ Treatment Treatment::flip(size_t idx)
     flippedTreatment.treat_vector_arma[idx] = flippedTreatment.treat_vector[idx];
     return flippedTreatment;
 }
+
+void Treatment::flip_inplace(size_t idx)
+{
+    if (idx > this->treat_vector.size()) {
+        return;
+    }
+    auto flip_result = 1 - this->treat_vector[idx];
+    this->treat_vector[idx] = flip_result;
+    this->treat_vector_arma[idx] = flip_result;
+}
