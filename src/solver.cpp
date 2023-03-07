@@ -47,3 +47,9 @@ Treatment BruteForceSolver::findTreatment(const Patient& p)
 
     return best_solution;
 }
+
+Treatment ProposedSolver::findTreatment(const Patient& p)
+{
+    Treatment t(this->nim.nutrient_size);
+    return t;
+}

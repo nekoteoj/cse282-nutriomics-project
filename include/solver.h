@@ -21,6 +21,7 @@ class BruteForceSolver : public BaseSolver {
 };
 
 class ProposedSolver : public BaseSolver {
+    virtual Treatment findTreatment(const Patient& p);
 };
 
 #endif

@@ -1,6 +1,8 @@
 #include "argument.h"
 
 #include <argparse/argparse.hpp>
+#include <string>
+#include <vector>
 
 RunConfig parse_arguments(int argc, char* argv[])
 {
@@ -19,6 +21,22 @@ RunConfig parse_arguments(int argc, char* argv[])
         .help("specify the maximum nutrient allowance")
         .scan<'i', int>();
 
+    program.add_argument("-o", "--output")
+        .default_value(std::string { "treatment_result.csv" })
+        .help("specify csv output path");
+
+    program.add_argument("-a", "--algorithm")
+        .default_value(std::string { "bruteforce" })
+        .help("specify the algorithm between bruteforce and proposed")
+        .action([](const std::string& value) {
+            static const std::vector<std::string> choices = { "bruteforce",
+                "proposed" };
+            if (std::find(choices.begin(), choices.end(), value) != choices.end()) {
+                return value;
+            }
+            return std::string { "bruteforce" };
+        });
+
     try {
         program.parse_args(argc, argv);
     } catch (const std::runtime_error& err) {
@@ -30,6 +48,8 @@ RunConfig parse_arguments(int argc, char* argv[])
     return {
         program.get<std::string>("--nim"),
         program.get<std::string>("--patient"),
+        program.get<std::string>("--algorithm"),
+        program.get<std::string>("--output"),
         program.get<int>("-k")
     };
 }
