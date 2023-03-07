@@ -52,5 +52,5 @@ ctest
 
 ## Author
 
-1. Pisit Wajanasara (@nekoteoj)
-2. Hao Xu (@NYXFLOWER)
+1. Pisit Wajanasara ([@nekoteoj](https://github.com/nekoteoj))
+2. Hao Xu ([@NYXFLOWER](https://github.com/NYXFLOWER))
