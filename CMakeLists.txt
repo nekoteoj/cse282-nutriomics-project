@@ -16,21 +16,22 @@ set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
 set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 set(TEST_DIR ${CMAKE_SOURCE_DIR}/test)
 
-set (LIB_FILES
-     ${SRC_DIR}/sum.cpp
-     ${SRC_DIR}/nim.cpp
-     ${SRC_DIR}/util.cpp
-     ${SRC_DIR}/patient.cpp
-     ${SRC_DIR}/treatment.cpp
-     ${SRC_DIR}/scoring.cpp
-     ${SRC_DIR}/argument.cpp)
+set(LIB_FILES
+        ${SRC_DIR}/sum.cpp
+        ${SRC_DIR}/nim.cpp
+        ${SRC_DIR}/util.cpp
+        ${SRC_DIR}/patient.cpp
+        ${SRC_DIR}/treatment.cpp
+        ${SRC_DIR}/scoring.cpp
+        ${SRC_DIR}/argument.cpp
+        ${SRC_DIR}/solver.cpp)
 
-set (TEST_FILES
-     test_util
-     test_nim
-     test_patient
-     test_treatment
-     test_scoring)
+set(TEST_FILES
+        test_util
+        test_nim
+        test_patient
+        test_treatment
+        test_scoring)
 
 # Setup Armadillo
 find_package(Armadillo REQUIRED)
@@ -57,7 +58,7 @@ Include(FetchContent)
 FetchContent_Declare(
         Catch2
         GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-        GIT_TAG        v3.0.1 # or a later release
+        GIT_TAG v3.0.1 # or a later release
 )
 
 FetchContent_MakeAvailable(Catch2)
