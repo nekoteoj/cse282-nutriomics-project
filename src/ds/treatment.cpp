@@ -1,4 +1,4 @@
-#include "treatment.h"
+#include "ds/treatment.h"
 
 Treatment::Treatment(size_t size)
 {

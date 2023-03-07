@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "patient.h"
+#include "ds/patient.h"
 
 TEST_CASE("Test loading PatientList")
 {

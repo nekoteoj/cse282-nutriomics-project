@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "treatment.h"
+#include "ds/treatment.h"
 
 TEST_CASE("Test create empty treatment vector")
 {

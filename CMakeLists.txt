@@ -17,21 +17,21 @@ set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 set(TEST_DIR ${CMAKE_SOURCE_DIR}/test)
 
 set(LIB_FILES
+        ${SRC_DIR}/ds/nim.cpp
+        ${SRC_DIR}/ds/patient.cpp
+        ${SRC_DIR}/ds/treatment.cpp
         ${SRC_DIR}/sum.cpp
-        ${SRC_DIR}/nim.cpp
         ${SRC_DIR}/util.cpp
-        ${SRC_DIR}/patient.cpp
-        ${SRC_DIR}/treatment.cpp
         ${SRC_DIR}/scoring.cpp
         ${SRC_DIR}/argument.cpp
         ${SRC_DIR}/solver.cpp
         ${SRC_DIR}/report.cpp)
 
 set(TEST_FILES
+        ds/test_nim
+        ds/test_patient
+        ds/test_treatment
         test_util
-        test_nim
-        test_patient
-        test_treatment
         test_scoring)
 
 # Setup Armadillo
@@ -69,10 +69,11 @@ include(CTest)
 include(Catch)
 
 foreach(TEST_FILE ${TEST_FILES})
-        add_executable(${TEST_FILE} ${TEST_DIR}/${TEST_FILE}.cpp ${LIB_FILES})
-        target_link_libraries(${TEST_FILE} PRIVATE Catch2::Catch2WithMain)
-        target_link_libraries(${TEST_FILE} PRIVATE ${ARMADILLO_LIBRARIES})
-        target_link_libraries(${TEST_FILE} PRIVATE argparse)
-        target_include_directories(${TEST_FILE} PRIVATE ${INCLUDE_DIR})
-        catch_discover_tests(${TEST_FILE})
+        STRING(REGEX REPLACE "^ds/" "" TEST_NAME ${TEST_FILE})
+        add_executable(${TEST_NAME} ${TEST_DIR}/${TEST_FILE}.cpp ${LIB_FILES})
+        target_link_libraries(${TEST_NAME} PRIVATE Catch2::Catch2WithMain)
+        target_link_libraries(${TEST_NAME} PRIVATE ${ARMADILLO_LIBRARIES})
+        target_link_libraries(${TEST_NAME} PRIVATE argparse)
+        target_include_directories(${TEST_NAME} PRIVATE ${INCLUDE_DIR})
+        catch_discover_tests(${TEST_NAME})
 endforeach()

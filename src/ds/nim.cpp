@@ -1,4 +1,4 @@
-#include "nim.h"
+#include "ds/nim.h"
 
 #include "util.h"
 

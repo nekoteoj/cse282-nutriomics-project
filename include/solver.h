@@ -1,9 +1,9 @@
 #ifndef SOLVER_H_
 #define SOLVER_H_
 
-#include "nim.h"
-#include "patient.h"
-#include "treatment.h"
+#include "ds/nim.h"
+#include "ds/patient.h"
+#include "ds/treatment.h"
 
 #include <vector>
 
