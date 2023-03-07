@@ -20,10 +20,10 @@ set(LIB_FILES
         ${SRC_DIR}/ds/nim.cpp
         ${SRC_DIR}/ds/patient.cpp
         ${SRC_DIR}/ds/treatment.cpp
+        ${SRC_DIR}/cli/argument.cpp
         ${SRC_DIR}/sum.cpp
         ${SRC_DIR}/util.cpp
         ${SRC_DIR}/scoring.cpp
-        ${SRC_DIR}/argument.cpp
         ${SRC_DIR}/solver.cpp
         ${SRC_DIR}/report.cpp)
 
@@ -48,7 +48,7 @@ FetchContent_MakeAvailable(argparse)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/_deps/argparse-src/include)
 
 # Setup main executable
-add_executable(nutriomics_main ${SRC_DIR}/nutriomics_main.cpp ${LIB_FILES})
+add_executable(nutriomics_main ${SRC_DIR}/cli/nutriomics_main.cpp ${LIB_FILES})
 target_link_libraries(nutriomics_main PRIVATE ${ARMADILLO_LIBRARIES})
 target_link_libraries(nutriomics_main PRIVATE argparse)
 target_include_directories(nutriomics_main PRIVATE ${INCLUDE_DIR})
