@@ -19,13 +19,14 @@ std::vector<TreatmentResult> BaseSolver::findTreatments(const PatientList& ps)
 TreatmentResult BruteForceSolver::findTreatment(const Patient& p)
 {
     Treatment t(this->nim.nutrient_size);
-    std::queue<std::pair<Treatment, int>> q;
-    q.push({ t, 0 });
+    std::queue<std::pair<Treatment, std::pair<int, int>>> q;
+    q.push({ t, { 0, -1 } });
     double best_distance = std::numeric_limits<double>::infinity();
     Treatment best_solution = t;
 
     while (!q.empty()) {
-        auto [t_front, depth] = q.front();
+        auto [t_front, info] = q.front();
+        auto [depth, last_one] = info;
         q.pop();
         auto qualifier_hat = compute_qualifier(this->nim.impact_matrix_arma, t_front.treat_vector_arma);
         auto distance = compute_distance(p.qualifier_arma, qualifier_hat);
@@ -36,12 +37,12 @@ TreatmentResult BruteForceSolver::findTreatment(const Patient& p)
         if (depth + 1 > this->k) {
             continue;
         }
-        for (auto i = 0; i < t_front.treat_vector.size(); i++) {
+        for (auto i = last_one + 1; i < t_front.treat_vector.size(); i++) {
             if (t_front.treat_vector[i] == 1) {
                 continue;
             }
             auto t_next = t_front.flip(i);
-            q.push({ t_next, depth + 1 });
+            q.push({ t_next, { depth + 1, i } });
         }
     }
 
