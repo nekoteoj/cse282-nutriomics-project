@@ -14,9 +14,9 @@ bool export_treatment_to_csv(
     }
 
     // Output headers
-    file << "sample-id\tscore";
+    file << "sample-id,score";
     for (const auto& nutrient : nutrients) {
-        file << "\t" << nutrient;
+        file << "," << nutrient;
     }
 
     // Output patient treatments
@@ -24,9 +24,9 @@ bool export_treatment_to_csv(
         const auto& treatment_result = treatment_results[i];
         const auto& patient = patients[i];
         file << "\n"
-             << patient.sample_id << "\t" << treatment_result.score;
+             << patient.sample_id << "," << treatment_result.score;
         for (const auto& choose : treatment_result.treatment.treat_vector) {
-            file << "\t" << choose;
+            file << "," << choose;
         }
     }
 
