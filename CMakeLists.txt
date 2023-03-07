@@ -24,7 +24,8 @@ set(LIB_FILES
         ${SRC_DIR}/treatment.cpp
         ${SRC_DIR}/scoring.cpp
         ${SRC_DIR}/argument.cpp
-        ${SRC_DIR}/solver.cpp)
+        ${SRC_DIR}/solver.cpp
+        ${SRC_DIR}/report.cpp)
 
 set(TEST_FILES
         test_util
