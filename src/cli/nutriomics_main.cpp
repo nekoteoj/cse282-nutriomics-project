@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
         delete solver;
         solver = new ProposedSolver(nim, run_config.k);
     }
-    auto treatment_results = solver->findTreatments(patient_list);
+    auto treatment_results = solver->find_treatments(patient_list);
     delete solver;
 
     // Save the result

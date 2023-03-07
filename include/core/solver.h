@@ -18,18 +18,22 @@ public:
     {
     }
     virtual ~BaseSolver() { }
-    virtual TreatmentResult findTreatment(const Patient& p) = 0;
-    std::vector<TreatmentResult> findTreatments(const PatientList& pl);
+    virtual TreatmentResult find_treatment(const Patient& p) = 0;
+    std::vector<TreatmentResult> find_treatments(const PatientList& pl);
 };
 
 class BruteForceSolver : public BaseSolver {
+private:
+    TreatmentResult find_treatment(Treatment& t, int start_idx, int depth, const Patient& p);
+
+public:
     using BaseSolver::BaseSolver;
-    virtual TreatmentResult findTreatment(const Patient& p);
+    virtual TreatmentResult find_treatment(const Patient& p);
 };
 
 class ProposedSolver : public BaseSolver {
     using BaseSolver::BaseSolver;
-    virtual TreatmentResult findTreatment(const Patient& p);
+    virtual TreatmentResult find_treatment(const Patient& p);
 };
 
 #endif
