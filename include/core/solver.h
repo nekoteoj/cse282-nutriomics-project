@@ -20,6 +20,7 @@ public:
     virtual ~BaseSolver() { }
     virtual TreatmentResult find_treatment(const Patient& p) = 0;
     std::vector<TreatmentResult> find_treatments(const PatientList& pl);
+    double find_distance(const Patient& p, const Treatment& t);
 };
 
 class BruteForceSolver : public BaseSolver {
@@ -32,7 +33,11 @@ public:
 };
 
 class ProposedSolver : public BaseSolver {
+public:
     using BaseSolver::BaseSolver;
+    std::vector<TreatmentResult> state_expander(
+        const Treatment& t, const Patient& p, int depth, int top_level,
+        int top_overall, double max_threshold);
     virtual TreatmentResult find_treatment(const Patient& p);
 };
 

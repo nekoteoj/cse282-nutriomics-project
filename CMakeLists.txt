@@ -32,7 +32,8 @@ set(TEST_FILES
         ds/test_patient
         ds/test_treatment
         util/test_util
-        core/test_scoring)
+        core/test_scoring
+        core/test_solver)
 
 # Setup Armadillo
 find_package(Armadillo REQUIRED)

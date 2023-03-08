@@ -12,7 +12,7 @@ Treatment::Treatment(const Treatment& treatment)
     this->treat_vector_arma = arma::Row<double> { treatment.treat_vector_arma };
 }
 
-Treatment Treatment::flip(size_t idx)
+Treatment Treatment::flip(size_t idx) const
 {
     if (idx > this->treat_vector.size()) {
         return Treatment { *this };
@@ -31,4 +31,13 @@ void Treatment::flip_inplace(size_t idx)
     auto flip_result = 1 - this->treat_vector[idx];
     this->treat_vector[idx] = flip_result;
     this->treat_vector_arma[idx] = flip_result;
+}
+
+bool TreatmentResult::operator<(const TreatmentResult& other) const
+{
+    if (this->score != other.score) {
+        return this->score < other.score;
+    }
+    return arma::sum(this->treatment.treat_vector_arma)
+        > arma::sum(other.treatment.treat_vector_arma);
 }
