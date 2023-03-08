@@ -43,3 +43,8 @@ bool TreatmentResult::operator<(const TreatmentResult& other) const
     }
     return this->treatment.count > other.treatment.count;
 }
+
+bool TreatmentResult::operator>(const TreatmentResult& other) const
+{
+    return other < *this;
+}

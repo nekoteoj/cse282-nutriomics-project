@@ -3,6 +3,7 @@
 #include "core/scoring.h"
 #include "util/util.h"
 
+#include <iostream>
 #include <limits>
 #include <queue>
 #include <set>
@@ -12,9 +13,13 @@
 std::vector<TreatmentResult> BaseSolver::find_treatments(const PatientList& ps)
 {
     std::vector<TreatmentResult> treatments;
+    size_t i = 0;
     for (const auto& p : ps.patients) {
+        std::cout << "Solving treatment for patient " << i + 1 << "/" << ps.patients.size() << '\r' << std::flush;
         treatments.emplace_back(this->find_treatment(p));
+        i++;
     }
+    std::cout << std::endl;
     return treatments;
 }
 
@@ -58,7 +63,11 @@ std::vector<TreatmentResult> ProposedSolver::state_expander(
     int top_overall, double max_threshold)
 {
     if (depth == 0) {
-        return { { Treatment { t }, this->find_distance(p, t) } };
+        TreatmentResult treatment_result { Treatment { t }, this->find_distance(p, t) };
+        if (treatment_result.score < max_threshold) {
+            return { treatment_result };
+        }
+        return {};
     }
     // Map heap for storing top scoring states in the same level
     std::priority_queue<TreatmentResult> level_pq;
@@ -117,5 +126,31 @@ std::vector<TreatmentResult> ProposedSolver::state_expander(
 TreatmentResult ProposedSolver::find_treatment(const Patient& p)
 {
     Treatment t(this->nim.nutrient_size);
-    return { t, 0 };
+    TreatmentResult best_treatment_result { t, this->find_distance(p, t) };
+
+    // Min heap
+    std::priority_queue<TreatmentResult, std::vector<TreatmentResult>, std::greater<TreatmentResult>> pq;
+    pq.push(best_treatment_result);
+
+    while (pq.size() > 0) {
+        auto treatment_result = pq.top();
+        pq.pop();
+        auto expand_depth = this->k - treatment_result.treatment.count < 2
+            ? this->k - treatment_result.treatment.count
+            : 2;
+        auto max_threshold = best_treatment_result.score < treatment_result.score
+            ? best_treatment_result.score
+            : treatment_result.score;
+        auto states = this->state_expander(
+            treatment_result.treatment, p, expand_depth,
+            10, 10, max_threshold);
+        for (const auto& state : states) {
+            pq.push(state);
+            if (state < best_treatment_result) {
+                best_treatment_result = state;
+            }
+        }
+    }
+
+    return best_treatment_result;
 }

@@ -29,6 +29,7 @@ public:
     }
 
     bool operator<(const TreatmentResult& other) const;
+    bool operator>(const TreatmentResult& other) const;
 };
 
 #endif
