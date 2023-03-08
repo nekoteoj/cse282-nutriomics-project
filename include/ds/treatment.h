@@ -9,6 +9,7 @@ class Treatment {
 public:
     std::vector<int> treat_vector;
     arma::Row<double> treat_vector_arma;
+    int count;
 
     Treatment(size_t size);
     Treatment(const Treatment& treatment);

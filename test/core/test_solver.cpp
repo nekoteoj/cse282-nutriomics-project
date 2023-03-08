@@ -18,7 +18,7 @@ TEST_CASE("Test proposed solver's state expander")
     Treatment t(solver.nim.nutrient_size);
     auto states = solver.state_expander(t, pl.patients[3], 2, 20, 10, 2e9);
     for (const auto& state : states) {
-        std::cout << "score: " << state.score << ", depth: " << arma::sum(state.treatment.treat_vector_arma) << std::endl;
+        std::cout << "score: " << state.score << ", depth: " << state.treatment.count << std::endl;
     }
     REQUIRE(states.size() == 10);
 }
