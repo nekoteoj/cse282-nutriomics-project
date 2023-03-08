@@ -33,3 +33,15 @@ std::vector<int> vector_string_to_int(const std::vector<std::string>& s_vector)
     }
     return results;
 }
+
+std::string vector_int_serialize(const std::vector<int>& i_vector)
+{
+    std::string s = "";
+    for (auto i = 0; i < i_vector.size(); i++) {
+        if (i > 0) {
+            s += ";";
+        }
+        s += std::to_string(i_vector[i]);
+    }
+    return s;
+}

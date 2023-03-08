@@ -7,5 +7,6 @@
 std::vector<std::string> string_split(std::string s, std::string tokenizer);
 std::vector<double> vector_string_to_double(const std::vector<std::string>& s_vector);
 std::vector<int> vector_string_to_int(const std::vector<std::string>& s_vector);
+std::string vector_int_serialize(const std::vector<int>& i_vector);
 
 #endif

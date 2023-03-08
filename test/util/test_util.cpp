@@ -29,3 +29,9 @@ TEST_CASE("Convert vector of string to vector of double")
         REQUIRE(std::abs(outputs[i] - results[i]) < 1e-9);
     }
 }
+
+TEST_CASE("Serialize vector of int")
+{
+    std::vector<int> v { 1, 2, 3 };
+    REQUIRE(vector_int_serialize(v) == "1;2;3");
+}
