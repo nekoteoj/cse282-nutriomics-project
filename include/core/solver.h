@@ -33,11 +33,21 @@ public:
 };
 
 class ProposedSolver : public BaseSolver {
+private:
+    int depth;
+    int top_level;
+    int top_overall;
+
 public:
-    using BaseSolver::BaseSolver;
+    ProposedSolver(const NIM& nim, int k, int depth, int top_level, int top_overall)
+        : BaseSolver(nim, k)
+        , depth(depth)
+        , top_level(top_level)
+        , top_overall(top_overall)
+    {
+    }
     std::vector<TreatmentResult> state_expander(
-        const Treatment& t, const Patient& p, int depth, int top_level,
-        int top_overall, double max_threshold);
+        const Treatment& t, const Patient& p, int remain_depth, double max_threshold);
     virtual TreatmentResult find_treatment(const Patient& p);
 };
 

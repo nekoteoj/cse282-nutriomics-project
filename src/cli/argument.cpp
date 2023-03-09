@@ -37,6 +37,21 @@ RunConfig parse_arguments(int argc, char* argv[])
             return std::string { "bruteforce" };
         });
 
+    program.add_argument("-d", "--depth")
+        .default_value(2)
+        .help("specify the subtree expanding depth for proposed algorithm")
+        .scan<'i', int>();
+
+    program.add_argument("-l", "--top-level")
+        .default_value(10)
+        .help("specify the number of top states to keep at each level during subtree expanding for proposed algorithm")
+        .scan<'i', int>();
+
+    program.add_argument("-v", "--top-overall")
+        .default_value(10)
+        .help("specify the number of top states to keep in the subtree during subtree expanding for proposed algorithm")
+        .scan<'i', int>();
+
     try {
         program.parse_args(argc, argv);
     } catch (const std::runtime_error& err) {
@@ -50,6 +65,9 @@ RunConfig parse_arguments(int argc, char* argv[])
         program.get<std::string>("--patient"),
         program.get<std::string>("--algorithm"),
         program.get<std::string>("--output"),
-        program.get<int>("-k")
+        program.get<int>("-k"),
+        program.get<int>("--depth"),
+        program.get<int>("--top-level"),
+        program.get<int>("--top-overall")
     };
 }

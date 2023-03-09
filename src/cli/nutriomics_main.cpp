@@ -17,6 +17,12 @@ int main(int argc, char* argv[])
     std::cout << "Algorithm: " << run_config.algo << std::endl;
     std::cout << "Output: " << run_config.output_path << std::endl;
 
+    if (run_config.algo == "proposed") {
+        std::cout << "Depth: " << run_config.depth << std::endl;
+        std::cout << "Top Level: " << run_config.top_level << std::endl;
+        std::cout << "Top Overall: " << run_config.top_overall << std::endl;
+    }
+
     // Load nutrient impact matrix
     NIM nim;
     nim.load(run_config.nim_path, ",");
@@ -29,7 +35,7 @@ int main(int argc, char* argv[])
     BaseSolver* solver = new BruteForceSolver(nim, run_config.k);
     if (run_config.algo == "proposed") {
         delete solver;
-        solver = new ProposedSolver(nim, run_config.k);
+        solver = new ProposedSolver(nim, run_config.k, run_config.depth, run_config.top_level, run_config.top_overall);
     }
     auto treatment_results = solver->find_treatments(patient_list);
     delete solver;

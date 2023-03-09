@@ -59,10 +59,9 @@ TreatmentResult BruteForceSolver::find_treatment(const Patient& p)
 }
 
 std::vector<TreatmentResult> ProposedSolver::state_expander(
-    const Treatment& t, const Patient& p, int depth, int top_level,
-    int top_overall, double max_threshold)
+    const Treatment& t, const Patient& p, int remain_depth, double max_threshold)
 {
-    if (depth == 0) {
+    if (remain_depth == 0) {
         TreatmentResult treatment_result { Treatment { t }, this->find_distance(p, t) };
         if (treatment_result.score < max_threshold) {
             return { treatment_result };
@@ -78,7 +77,7 @@ std::vector<TreatmentResult> ProposedSolver::state_expander(
         auto t_next = t.flip(i);
         auto distance_next = this->find_distance(p, t_next);
         TreatmentResult treatment_result_next { t_next, distance_next };
-        if (level_pq.size() == top_level) {
+        if (level_pq.size() == this->top_level) {
             if (level_pq.top() < treatment_result_next) {
                 continue;
             }
@@ -95,13 +94,13 @@ std::vector<TreatmentResult> ProposedSolver::state_expander(
         auto treatment_result_next = level_pq.top();
         level_pq.pop();
         auto treatment_result_nexts = this->state_expander(
-            treatment_result_next.treatment, p, depth - 1, top_level, top_overall, max_threshold);
+            treatment_result_next.treatment, p, remain_depth - 1, max_threshold);
         for (auto& treatment_result_next : treatment_result_nexts) {
             auto serialized_state = vector_int_serialize(treatment_result_next.treatment.treat_vector);
             if (seen_state.contains(serialized_state)) {
                 continue;
             }
-            if (overall_pq.size() == top_overall) {
+            if (overall_pq.size() == this->top_overall) {
                 if (overall_pq.top() < treatment_result_next) {
                     continue;
                 }
@@ -135,15 +134,14 @@ TreatmentResult ProposedSolver::find_treatment(const Patient& p)
     while (pq.size() > 0) {
         auto treatment_result = pq.top();
         pq.pop();
-        auto expand_depth = this->k - treatment_result.treatment.count < 2
+        auto expand_depth = this->k - treatment_result.treatment.count < this->depth
             ? this->k - treatment_result.treatment.count
-            : 2;
+            : this->depth;
         auto max_threshold = best_treatment_result.score < treatment_result.score
             ? best_treatment_result.score
             : treatment_result.score;
         auto states = this->state_expander(
-            treatment_result.treatment, p, expand_depth,
-            10, 10, max_threshold);
+            treatment_result.treatment, p, expand_depth, max_threshold);
         for (const auto& state : states) {
             pq.push(state);
             if (state < best_treatment_result) {

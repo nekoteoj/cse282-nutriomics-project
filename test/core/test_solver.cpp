@@ -14,9 +14,9 @@ TEST_CASE("Test proposed solver's state expander")
     PatientList pl;
     pl.load("../res/patient_inputs.csv", k);
 
-    ProposedSolver solver(nim, k);
+    ProposedSolver solver(nim, k, 2, 20, 10);
     Treatment t(solver.nim.nutrient_size);
-    auto states = solver.state_expander(t, pl.patients[3], 2, 20, 10, 2e9);
+    auto states = solver.state_expander(t, pl.patients[3], 2, 2e9);
     for (const auto& state : states) {
         std::cout << "score: " << state.score << ", depth: " << state.treatment.count << std::endl;
     }
