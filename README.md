@@ -17,6 +17,8 @@ For macOS with homebrew
 brew install cmake armadillo
 ```
 
+Note: `clang-format` is suggested to be installed with `brew` for coding style consistence.
+
 ## Compiling
 
 1. Create the build folder
@@ -49,6 +51,41 @@ command can be used.
 # In the build folder
 ctest
 ```
+
+## Folder Architecture
+
+`src`: cpp code folder
+
+- `cli`: executable folder 
+- `core`: functionality of the program
+- `ds`: data structure for the program
+- `util`: utility functions
+
+`include`: header folder
+
+`res`: data and resource folder
+
+`test`: unit testing
+
+## Usage and Experiments
+
+```shell
+Usage: nutriomics_main [--help] [--version] --nim VAR --patient VAR -k VAR [--output VAR] [--algorithm VAR]
+
+Optional arguments:
+  -h, --help            shows help message and exits 
+  -v, --version         prints version information and exits 
+  -n, --nim             specify the nutrient impact matrix file [required]
+  -p, --patient         specify the patient input file [required]
+  -k                    specify the maximum nutrient allowance [required]
+  -o, --output          specify csv output path [default: "treatment_result.csv"]
+  -a, --algorithm       specify the algorithm between bruteforce and proposed [default: "bruteforce"]
+```
+
+Note for data preparation:
+
+- The order of nutrients and microbes in the `nims.csv` and `patient_inputs.csv` need to be consistent.
+- We use the `real` time from the `time` command for measuring the runtime of each experiments.
 
 ## Author
 

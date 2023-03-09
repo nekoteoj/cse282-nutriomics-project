@@ -11,3 +11,5 @@ CTestTestfile.cmake
 build
 .vscode
 _deps
+
+*.csv
