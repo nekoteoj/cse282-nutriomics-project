@@ -59,11 +59,11 @@ TreatmentResult BruteForceSolver::find_treatment(const Patient& p)
 }
 
 std::vector<TreatmentResult> ProposedSolver::state_expander(
-    const Treatment& t, const Patient& p, int remain_depth, double max_threshold)
+    const Treatment& t, const Patient& p, int remain_depth, const std::vector<double>& max_threshold_at_depth)
 {
     if (remain_depth == 0) {
         TreatmentResult treatment_result { Treatment { t }, this->find_distance(p, t) };
-        if (treatment_result.score < max_threshold) {
+        if (treatment_result.score < max_threshold_at_depth[treatment_result.treatment.count]) {
             return { treatment_result };
         }
         return {};
@@ -94,7 +94,7 @@ std::vector<TreatmentResult> ProposedSolver::state_expander(
         auto treatment_result_next = level_pq.top();
         level_pq.pop();
         auto treatment_result_nexts = this->state_expander(
-            treatment_result_next.treatment, p, remain_depth - 1, max_threshold);
+            treatment_result_next.treatment, p, remain_depth - 1, max_threshold_at_depth);
         for (auto& treatment_result_next : treatment_result_nexts) {
             auto serialized_state = vector_int_serialize(treatment_result_next.treatment.treat_vector);
             if (seen_state.contains(serialized_state)) {
@@ -113,7 +113,7 @@ std::vector<TreatmentResult> ProposedSolver::state_expander(
 
     std::vector<TreatmentResult> expanded_states;
     while (!overall_pq.empty()) {
-        if (overall_pq.top().score < max_threshold) {
+        if (overall_pq.top().score < max_threshold_at_depth[overall_pq.top().treatment.count]) {
             expanded_states.push_back(overall_pq.top());
         }
         overall_pq.pop();
@@ -130,6 +130,8 @@ TreatmentResult ProposedSolver::find_treatment(const Patient& p)
     // Min heap
     std::priority_queue<TreatmentResult, std::vector<TreatmentResult>, std::greater<TreatmentResult>> pq;
     pq.push(best_treatment_result);
+    std::vector<double> max_threshold_at_depth(this->k + 1, std::numeric_limits<double>().infinity());
+    max_threshold_at_depth[0] = best_treatment_result.score;
 
     while (pq.size() > 0) {
         auto treatment_result = pq.top();
@@ -137,15 +139,15 @@ TreatmentResult ProposedSolver::find_treatment(const Patient& p)
         auto expand_depth = this->k - treatment_result.treatment.count < this->depth
             ? this->k - treatment_result.treatment.count
             : this->depth;
-        auto max_threshold = best_treatment_result.score < treatment_result.score
-            ? best_treatment_result.score
-            : treatment_result.score;
         auto states = this->state_expander(
-            treatment_result.treatment, p, expand_depth, max_threshold);
+            treatment_result.treatment, p, expand_depth, max_threshold_at_depth);
         for (const auto& state : states) {
             pq.push(state);
             if (state < best_treatment_result) {
                 best_treatment_result = state;
+            }
+            if (state.score < max_threshold_at_depth[state.treatment.count]) {
+                max_threshold_at_depth[state.treatment.count] = state.score;
             }
         }
     }

@@ -47,7 +47,7 @@ public:
     {
     }
     std::vector<TreatmentResult> state_expander(
-        const Treatment& t, const Patient& p, int remain_depth, double max_threshold);
+        const Treatment& t, const Patient& p, int remain_depth, const std::vector<double>& max_threshold_at_depth);
     virtual TreatmentResult find_treatment(const Patient& p);
 };
 
