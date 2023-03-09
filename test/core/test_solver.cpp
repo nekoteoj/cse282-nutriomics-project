@@ -16,7 +16,8 @@ TEST_CASE("Test proposed solver's state expander")
 
     ProposedSolver solver(nim, k, 2, 20, 10);
     Treatment t(solver.nim.nutrient_size);
-    auto states = solver.state_expander(t, pl.patients[3], 2, 2e9);
+    std::vector<double> max_threshold_at_depth(solver.k + 1, 2e9);
+    auto states = solver.state_expander(t, pl.patients[3], 2, max_threshold_at_depth);
     for (const auto& state : states) {
         std::cout << "score: " << state.score << ", depth: " << state.treatment.count << std::endl;
     }
