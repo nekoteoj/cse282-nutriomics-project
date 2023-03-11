@@ -44,7 +44,7 @@ cmake --build .
 
 ## Testing
 
-We integrated Catch2 framework with CTest. To run the test, the following
+We integrated Catch2 framework with `CTest`. To run the test, the following
 command can be used.
 
 ```sh
@@ -69,8 +69,10 @@ ctest
 
 ## Usage and Experiments
 
+The `nutriomics main` script can be used with the following arguments:
+
 ```shell
-Usage: nutriomics_main [--help] [--version] --nim VAR --patient VAR -k VAR [--output VAR] [--algorithm VAR]
+Usage: nutriomics_main [--help] [--version] --nim VAR --patient VAR -k VAR [--output VAR] [--algorithm VAR] [--depth VAR] [--top-level VAR] [--top-overall VAR]
 
 Optional arguments:
   -h, --help            shows help message and exits 
@@ -80,12 +82,16 @@ Optional arguments:
   -k                    specify the maximum nutrient allowance [required]
   -o, --output          specify csv output path [default: "treatment_result.csv"]
   -a, --algorithm       specify the algorithm between bruteforce and proposed [default: "bruteforce"]
+  -d, --depth           specify the subtree expanding depth for proposed algorithm [default: 2]
+  -l, --top-level       specify the number of top states to keep at each level during subtree expanding for proposed algorithm [default: 10]
+  -v, --top-overall     specify the number of top states to keep in the subtree during subtree expanding for proposed algorithm [default: 10]
 ```
 
 Note for data preparation:
 
 - The order of nutrients and microbes in the `nims.csv` and `patient_inputs.csv` need to be consistent.
 - We use the `real` time from the `time` command for measuring the runtime of each experiments.
+- An example experiment bash file if provided in the `experiment` folder for reference.
 
 ## Author
 
