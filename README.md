@@ -1,6 +1,7 @@
 # CSE 282 Final Project
 
-LHS: A Combinatorial optimization algorithm for nutrient treatment Recommendations in patients with low microbe abundances.
+PHS: A Combinatorial optimization algorithm for nutrient treatment
+Recommendations in patients with low microbe abundances.
 
 ## Requirements
 
@@ -16,7 +17,8 @@ For macOS with homebrew
 brew install cmake armadillo
 ```
 
-Note: `clang-format` is suggested to be installed with `brew` for coding style consistence.
+Note: `clang-format` is suggested to be installed with `brew` for coding style
+consistency.
 
 ## Compiling
 
@@ -55,7 +57,7 @@ ctest
 
 `src`: cpp code folder
 
-- `cli`: executable folder 
+- `cli`: executable folder
 - `core`: functionality of the program
 - `ds`: data structure for the program
 - `util`: utility functions
@@ -88,9 +90,12 @@ Optional arguments:
 
 Note for data preparation:
 
-- The order of nutrients and microbes in the `nims.csv` and `patient_inputs.csv` need to be consistent.
-- We use the `real` time from the `time` command for measuring the runtime of each experiments.
-- An example experiment bash file if provided in the `experiment` folder for reference.
+- The order of nutrients and microbes in the `nims.csv` and `patient_inputs.csv`
+  need to be consistent.
+- We use the `real` time from the `time` command for measuring the runtime of
+  each experiments.
+- An example experiment bash file if provided in the `experiment` folder for
+  reference.
 
 ## Author
 
